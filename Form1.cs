@@ -11,8 +11,9 @@ namespace System_test
         //***********************************************************************
         // Constant definitions
         //***********************************************************************
-        const int OK      = 0;
-        const int COMBAUD = 115200;
+        const int SUCCESS       = 0;
+        const int COMBAUD       = 115200;
+        const int READ_TIMEOUT  = 10000;   // timeout for read reply (10 seconds)
 
         //***********************************************************************
         // Constant definitions
@@ -24,6 +25,34 @@ namespace System_test
             InitializeComponent();
         }
 
+        //***********************************************************************
+        // User functions
+        //*********************************************************************** 
+        // get_reply : Read a status/data reply from LLcontrol subsystem
+        //
+        public Int32 get_reply()
+        {
+            string reply;
+            Int32 status;
+
+            //serialPort1.DiscardInBuffer();
+            serialPort1.ReadTimeout = READ_TIMEOUT;
+            try
+            {
+                reply = serialPort1.ReadLine();
+            }
+            catch (TimeoutException)
+            {
+                DebugWindow.AppendText("ReadLine timeout fail" + Environment.NewLine);
+                return -1;
+            }
+            DebugWindow.AppendText("Reply = " + reply);
+            return SUCCESS;
+        }
+ 
+        //***********************************************************************
+        // Window interface functions
+        //*********************************************************************** 
         private void Form1_Load(object sender, EventArgs e)
         {
             comboBox1.Items.Clear();
@@ -33,7 +62,7 @@ namespace System_test
             }
             comboBox1.SelectedIndex = 0;
             serialPort1.BaudRate = COMBAUD;
-            global_error = OK;
+            global_error = SUCCESS;
             Thread.Sleep(2000);
         }
 
@@ -64,6 +93,16 @@ namespace System_test
                 return;
             }
             DebugWindow.AppendText(com_port + "now open" + Environment.NewLine);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            String command = "p 5 ";
+
+            DebugWindow.AppendText(command + Environment.NewLine);
+            serialPort1.WriteLine(command);
+            DebugWindow.AppendText("Wating for reply" + Environment.NewLine);
+            int status = get_reply();
         }
     }
 }

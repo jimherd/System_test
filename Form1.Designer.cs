@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.COM_init = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -40,7 +41,7 @@
             this.DebugWindow = new System.Windows.Forms.TextBox();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.COM_init.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -58,6 +59,7 @@
             // 
             // COM_init
             // 
+            this.COM_init.Controls.Add(this.button2);
             this.COM_init.Controls.Add(this.button1);
             this.COM_init.Controls.Add(this.comboBox1);
             this.COM_init.Location = new System.Drawing.Point(4, 25);
@@ -68,6 +70,16 @@
             this.COM_init.Text = "COM_init";
             this.COM_init.UseVisualStyleBackColor = true;
             this.COM_init.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(38, 65);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(121, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Open COM Port";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // comboBox1
             // 
@@ -139,15 +151,15 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Debug Window";
             // 
-            // button1
+            // button2
             // 
-            this.button1.Location = new System.Drawing.Point(38, 65);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(121, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Open COM Port";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button2.Location = new System.Drawing.Point(273, 79);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(126, 60);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Form1
             // 
@@ -185,6 +197,7 @@
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button2;
     }
 }
 
