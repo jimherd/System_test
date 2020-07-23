@@ -5,7 +5,7 @@ using System.IO.Ports;
 using System.Threading;
 
 using MotionIOLibrary;
-
+using System.Runtime.Remoting.Messaging;
 
 namespace System_test {
     public partial class Form1 : Form {
@@ -16,7 +16,7 @@ namespace System_test {
         const int SUCCESS      = 0;
 
         //***********************************************************************
-        // Constant definitions
+        // variables and methods
         //*********************************************************************** 
         UInt32 global_error;
 
@@ -118,12 +118,8 @@ namespace System_test {
 
         private void button2_Click_1(object sender, EventArgs e) {
 
-            String command = "Pu 5";
-
-            DebugWindow.AppendText(command + Environment.NewLine);
-            FPGA_uP_IO.do_command(command);
-            DebugWindow.AppendText("Wating for reply" + Environment.NewLine);
-           // int status = FPGA_uP_IO.get_reply();
+            FPGA_uP_IO.ErrorCode status = FPGA_uP_IO.soft_bus_check();
+            DebugWindow.AppendText("Soft bus check : Retuen code = " + status + Environment.NewLine);
         }
     }
 }
