@@ -29,38 +29,7 @@ namespace System_test {
         //***********************************************************************
         // User functions
         //*********************************************************************** 
-        // do_command : execute motion system command
-        // ==========
-        //
-        //public FPGA_uP_IO.ErrorCode do_command(string command) {
-
-        //    DebugWindow.AppendText(command + Environment.NewLine);
-        //    serialPort1.WriteLine(command);
-        //    DebugWindow.AppendText("Wating for reply" + Environment.NewLine);
-        //    int status = get_reply();
-
-        //    return 0;
-        //}
-
-        //*********************************************************************** 
-        // get_reply : Read a status/data reply from LLcontrol subsystem
-        //
-        //public Int32 get_reply() {
-        //    string reply;
-        //    int status;
-
-        //    //serialPort1.DiscardInBuffer();
-        //    serialPort1.ReadTimeout = READ_TIMEOUT;
-        //    try {
-        //        reply = serialPort1.ReadLine();
-        //    }
-        //    catch (TimeoutException) {
-        //        DebugWindow.AppendText("ReadLine timeout fail" + Environment.NewLine);
-        //        return -1;
-        //    }
-        //    DebugWindow.AppendText("Reply = " + reply);
-        //    return SUCCESS;
-        //}
+        
 
         //***********************************************************************
         // Window interface functions
@@ -119,7 +88,7 @@ namespace System_test {
         private void button2_Click_1(object sender, EventArgs e) {
 
             FPGA_uP_IO.ErrorCode status = FPGA_uP_IO.soft_bus_check();
-            DebugWindow.AppendText("Soft bus check : Retuen code = " + status + Environment.NewLine);
+            DebugWindow.AppendText("Soft bus check : Return code = " + status + Environment.NewLine);
         }
     }
 }
