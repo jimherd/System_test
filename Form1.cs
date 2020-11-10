@@ -19,10 +19,19 @@ namespace System_test {
         // variables and methods
         //***********************************************************************
 
+        UInt32 nos_PWM_units = 0;
+        UInt32 nos_QE_units  = 0;
+        UInt32 nos_RC_units  = 0;
+
         Boolean connected = false;
         UInt32  global_error;
 
-        FPGA_uP_IO FPGA_uP_IO = new FPGA_uP_IO();
+        //***********************************************************************
+        //  Initialise oblects
+        //***********************************************************************
+
+        FPGA_uP_IO FPGA_uP_IO = new FPGA_uP_IO();  // Import FPGA interface functions
+        FPGA_Sys FPGA_Sys = new FPGA_Sys();        // Import FPGA configuration constants
 
         public Form1()
         {
@@ -67,14 +76,12 @@ namespace System_test {
 
         private void exitToolStripMenuItem_Click_2(object sender, EventArgs e)
         {
-
             serialPort1.Close();
             this.Close();
         }
 
         private void aboutToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-
+        { 
             MessageBox.Show("C# program to test Wattbot_nt control board", "WattBot-nt");
         }
 
@@ -95,6 +102,12 @@ namespace System_test {
                 return;
             }
             connected = true;
+            button4.Enabled  = true;
+            button6.Enabled  = true;
+            button7.Enabled  = true;
+            button9.Enabled  = true;
+            button11.Enabled = true;
+
             DebugWindow.AppendText(com_port + " now open" + Environment.NewLine);
         }
 
@@ -107,6 +120,7 @@ namespace System_test {
         private void button6_Click(object sender, EventArgs e)
         {
             string command_str = "w " + DEFAULT_PORT + " " + numericUpDown1.Value + " " + textBox1.Text + Environment.NewLine;
+            DebugWindow.AppendText("command = " + command_str + Environment.NewLine);
             FPGA_uP_IO.ErrorCode status = (FPGA_uP_IO.do_command(command_str));
             DebugWindow.AppendText("Port = " + DEFAULT_PORT + Environment.NewLine);
             DebugWindow.AppendText("Register No = " + numericUpDown1.Value + Environment.NewLine);
@@ -117,6 +131,7 @@ namespace System_test {
         private void button7_Click(object sender, EventArgs e)
         {
             string command_str = "r " + DEFAULT_PORT + " " + numericUpDown1.Value + " " + "0" + Environment.NewLine;
+            DebugWindow.AppendText("command = " + command_str + Environment.NewLine);
             FPGA_uP_IO.ErrorCode status = (FPGA_uP_IO.do_command(command_str));
             DebugWindow.AppendText("Port = " + DEFAULT_PORT + Environment.NewLine);
             DebugWindow.AppendText("Register No = " + numericUpDown1.Value + Environment.NewLine);
@@ -126,17 +141,13 @@ namespace System_test {
 
         private void button9_Click(object sender, EventArgs e)
         {
-
+            string command_str = "w" + Environment.NewLine;
+            DebugWindow.AppendText("command = " + command_str + Environment.NewLine);
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             FPGA_uP_IO.ErrorCode status;
-
-            if (connected == false) {
-                DebugWindow.AppendText("No serial connection" + Environment.NewLine);
-                return;
-            }
 
             if (radioButton1.Checked == true) {
                 status = FPGA_uP_IO.soft_bus_check();
@@ -150,14 +161,38 @@ namespace System_test {
             }
             if (radioButton3.Checked == true) {
                 status = FPGA_uP_IO.get_sys_data();
-                UInt32 data = (UInt32)FPGA_uP_IO.int32_parameters[2];
-                DebugWindow.AppendText("Port = " + FPGA_uP_IO.int32_parameters[0] + Environment.NewLine);
-                DebugWindow.AppendText("get_sys_data : Return data = " + data + Environment.NewLine);
-                DebugWindow.AppendText("Version = " + (data & 0x0F) + "." + ((data >> 4) & 0x0F) + Environment.NewLine);
-                DebugWindow.AppendText("PWM units = " + ((data >> 8) & 0x0F) + Environment.NewLine);
-                DebugWindow.AppendText("QE  units = " + ((data >> 12) & 0x0F) + Environment.NewLine);
-                DebugWindow.AppendText("RC  units = " + ((data >> 16) & 0x0F) + Environment.NewLine);
-                DebugWindow.AppendText("get_sys_data : Return code = " + status + Environment.NewLine);
+                if (status == SUCCESS) {
+                    UInt32 data = (UInt32)FPGA_uP_IO.int32_parameters[2];
+                    nos_PWM_units = ((data >> 8) & 0x0F);
+                    nos_QE_units = ((data >> 12) & 0x0F);
+                    nos_RC_units = ((data >> 16) & 0x0F);
+                    DebugWindow.AppendText("Port = " + FPGA_uP_IO.int32_parameters[0] + Environment.NewLine);
+                    DebugWindow.AppendText("get_sys_data : Return data = " + data + Environment.NewLine);
+                    DebugWindow.AppendText("Version = " + (data & 0x0F) + "." + ((data >> 4) & 0x0F) + Environment.NewLine);
+                    DebugWindow.AppendText("PWM units = " + nos_PWM_units + Environment.NewLine);
+                    DebugWindow.AppendText("QE  units = " + nos_QE_units + Environment.NewLine);
+                    DebugWindow.AppendText("RC  units = " + nos_RC_units + Environment.NewLine);
+                }
+                else {
+                    DebugWindow.AppendText("get_sys_data : Error code = " + status + Environment.NewLine);
+                }
+            }
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+
+            if (radioButton5.Checked == true) {
+
+            }
+            if (radioButton5.Checked == true) {
+
+            }
+            if (radioButton5.Checked == true) {
+
+            }
+            if (radioButton5.Checked == true) {
+
             }
         }
     }
