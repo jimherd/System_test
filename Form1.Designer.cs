@@ -73,7 +73,17 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label21 = new System.Windows.Forms.Label();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.radioButton14 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.button11 = new System.Windows.Forms.Button();
             this.radioButton8 = new System.Windows.Forms.RadioButton();
             this.radioButton7 = new System.Windows.Forms.RadioButton();
@@ -81,7 +91,6 @@
             this.radioButton5 = new System.Windows.Forms.RadioButton();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -100,6 +109,10 @@
             this.button5 = new System.Windows.Forms.Button();
             this.DebugWindow = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.button7 = new System.Windows.Forms.Button();
+            this.numericUpDown7 = new System.Windows.Forms.NumericUpDown();
+            this.label22 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.COM_init.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -113,11 +126,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             this.tabPage6.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
             this.tabPage1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -132,7 +147,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 45);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(537, 524);
+            this.tabControl1.Size = new System.Drawing.Size(537, 637);
             this.tabControl1.TabIndex = 0;
             // 
             // COM_init
@@ -149,7 +164,7 @@
             this.COM_init.Location = new System.Drawing.Point(4, 25);
             this.COM_init.Name = "COM_init";
             this.COM_init.Padding = new System.Windows.Forms.Padding(3);
-            this.COM_init.Size = new System.Drawing.Size(529, 495);
+            this.COM_init.Size = new System.Drawing.Size(529, 608);
             this.COM_init.TabIndex = 0;
             this.COM_init.Text = "System_init";
             // 
@@ -242,7 +257,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(529, 495);
+            this.tabPage2.Size = new System.Drawing.Size(529, 608);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Ping";
             // 
@@ -305,7 +320,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(529, 495);
+            this.tabPage3.Size = new System.Drawing.Size(529, 608);
             this.tabPage3.TabIndex = 3;
             this.tabPage3.Text = "Write Reg";
             // 
@@ -385,7 +400,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(529, 495);
+            this.tabPage4.Size = new System.Drawing.Size(529, 608);
             this.tabPage4.TabIndex = 4;
             this.tabPage4.Text = "Read Reg";
             // 
@@ -451,7 +466,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 25);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(529, 495);
+            this.tabPage5.Size = new System.Drawing.Size(529, 608);
             this.tabPage5.TabIndex = 5;
             this.tabPage5.Text = "Servo RC";
             // 
@@ -633,10 +648,10 @@
             // tabPage6
             // 
             this.tabPage6.BackColor = System.Drawing.Color.Yellow;
+            this.tabPage6.Controls.Add(this.groupBox4);
             this.tabPage6.Controls.Add(this.groupBox2);
             this.tabPage6.Controls.Add(this.checkBox2);
             this.tabPage6.Controls.Add(this.numericUpDown6);
-            this.tabPage6.Controls.Add(this.radioButton4);
             this.tabPage6.Controls.Add(this.textBox3);
             this.tabPage6.Controls.Add(this.label17);
             this.tabPage6.Controls.Add(this.label16);
@@ -646,25 +661,141 @@
             this.tabPage6.Location = new System.Drawing.Point(4, 25);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(529, 495);
+            this.tabPage6.Size = new System.Drawing.Size(529, 608);
             this.tabPage6.TabIndex = 6;
             this.tabPage6.Text = "PWM";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.groupBox4.Controls.Add(this.button6);
+            this.groupBox4.Controls.Add(this.button3);
+            this.groupBox4.Controls.Add(this.label21);
+            this.groupBox4.Controls.Add(this.comboBox3);
+            this.groupBox4.Controls.Add(this.radioButton14);
+            this.groupBox4.Controls.Add(this.radioButton3);
+            this.groupBox4.Controls.Add(this.checkBox4);
+            this.groupBox4.Controls.Add(this.checkBox3);
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.Location = new System.Drawing.Point(25, 395);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(474, 207);
+            this.groupBox4.TabIndex = 19;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "H-bridge commands";
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(277, 132);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(167, 44);
+            this.button6.TabIndex = 4;
+            this.button6.Text = "Command only";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.Update_H_bridge_cmd_click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(277, 68);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(167, 44);
+            this.button3.TabIndex = 4;
+            this.button3.Text = "Config H-bridge";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.Set_H_bridge_config_Click);
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(12, 144);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(85, 20);
+            this.label21.TabIndex = 3;
+            this.label21.Text = "Command";
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "No change",
+            "Coast",
+            "Forward",
+            "Backward",
+            "Brake"});
+            this.comboBox3.Location = new System.Drawing.Point(116, 141);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(121, 28);
+            this.comboBox3.TabIndex = 2;
+            // 
+            // radioButton14
+            // 
+            this.radioButton14.AutoSize = true;
+            this.radioButton14.Location = new System.Drawing.Point(23, 68);
+            this.radioButton14.Name = "radioButton14";
+            this.radioButton14.Size = new System.Drawing.Size(163, 24);
+            this.radioButton14.TabIndex = 1;
+            this.radioButton14.TabStop = true;
+            this.radioButton14.Text = "PWM/PWM mode";
+            this.radioButton14.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(23, 98);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(145, 24);
+            this.radioButton3.TabIndex = 1;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "PWM/Dir mode";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Location = new System.Drawing.Point(223, 28);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(162, 24);
+            this.checkBox4.TabIndex = 0;
+            this.checkBox4.Text = "External H-bridge";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(23, 28);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(156, 24);
+            this.checkBox3.TabIndex = 0;
+            this.checkBox3.Text = "Internal H-bridge";
+            this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.groupBox2.Controls.Add(this.radioButton4);
             this.groupBox2.Controls.Add(this.button11);
             this.groupBox2.Controls.Add(this.radioButton8);
             this.groupBox2.Controls.Add(this.radioButton7);
             this.groupBox2.Controls.Add(this.radioButton6);
             this.groupBox2.Controls.Add(this.radioButton5);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(53, 288);
+            this.groupBox2.Location = new System.Drawing.Point(41, 194);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(378, 201);
+            this.groupBox2.Size = new System.Drawing.Size(378, 186);
             this.groupBox2.TabIndex = 18;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "PWM commands";
+            // 
+            // radioButton4
+            // 
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Location = new System.Drawing.Point(7, 154);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(171, 24);
+            this.radioButton4.TabIndex = 20;
+            this.radioButton4.TabStop = true;
+            this.radioButton4.Text = "Clear configuration";
+            this.radioButton4.UseVisualStyleBackColor = true;
             // 
             // button11
             // 
@@ -681,7 +812,7 @@
             // radioButton8
             // 
             this.radioButton8.AutoSize = true;
-            this.radioButton8.Location = new System.Drawing.Point(9, 144);
+            this.radioButton8.Location = new System.Drawing.Point(9, 123);
             this.radioButton8.Name = "radioButton8";
             this.radioButton8.Size = new System.Drawing.Size(150, 24);
             this.radioButton8.TabIndex = 3;
@@ -692,7 +823,7 @@
             // radioButton7
             // 
             this.radioButton7.AutoSize = true;
-            this.radioButton7.Location = new System.Drawing.Point(9, 105);
+            this.radioButton7.Location = new System.Drawing.Point(9, 93);
             this.radioButton7.Name = "radioButton7";
             this.radioButton7.Size = new System.Drawing.Size(144, 24);
             this.radioButton7.TabIndex = 2;
@@ -703,7 +834,7 @@
             // radioButton6
             // 
             this.radioButton6.AutoSize = true;
-            this.radioButton6.Location = new System.Drawing.Point(9, 69);
+            this.radioButton6.Location = new System.Drawing.Point(9, 63);
             this.radioButton6.Name = "radioButton6";
             this.radioButton6.Size = new System.Drawing.Size(212, 24);
             this.radioButton6.TabIndex = 1;
@@ -726,11 +857,11 @@
             // 
             this.checkBox2.AutoSize = true;
             this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox2.Location = new System.Drawing.Point(290, 229);
+            this.checkBox2.Location = new System.Drawing.Point(328, 148);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(82, 24);
+            this.checkBox2.Size = new System.Drawing.Size(128, 24);
             this.checkBox2.TabIndex = 16;
-            this.checkBox2.Text = "Enable";
+            this.checkBox2.Text = "Enable PWM";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // numericUpDown6
@@ -741,36 +872,25 @@
             0,
             0,
             0});
-            this.numericUpDown6.Location = new System.Drawing.Point(178, 179);
+            this.numericUpDown6.Location = new System.Drawing.Point(178, 146);
             this.numericUpDown6.Name = "numericUpDown6";
             this.numericUpDown6.Size = new System.Drawing.Size(71, 26);
             this.numericUpDown6.TabIndex = 15;
             // 
-            // radioButton4
-            // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton4.Location = new System.Drawing.Point(78, 228);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(161, 24);
-            this.radioButton4.TabIndex = 14;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "Reverse direction";
-            this.radioButton4.UseVisualStyleBackColor = true;
-            // 
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(178, 134);
+            this.textBox3.Location = new System.Drawing.Point(178, 107);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(100, 26);
             this.textBox3.TabIndex = 13;
+            this.textBox3.Text = "1.0";
             // 
             // label17
             // 
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(21, 179);
+            this.label17.Location = new System.Drawing.Point(29, 148);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(126, 20);
             this.label17.TabIndex = 12;
@@ -780,7 +900,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(21, 134);
+            this.label16.Location = new System.Drawing.Point(21, 107);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(134, 20);
             this.label16.TabIndex = 12;
@@ -790,7 +910,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(21, 91);
+            this.label15.Location = new System.Drawing.Point(21, 75);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(143, 20);
             this.label15.TabIndex = 12;
@@ -799,7 +919,7 @@
             // numericUpDown5
             // 
             this.numericUpDown5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown5.Location = new System.Drawing.Point(178, 91);
+            this.numericUpDown5.Location = new System.Drawing.Point(178, 73);
             this.numericUpDown5.Maximum = new decimal(new int[] {
             3,
             0,
@@ -817,18 +937,22 @@
             this.label14.ForeColor = System.Drawing.Color.Yellow;
             this.label14.Location = new System.Drawing.Point(20, 21);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(171, 25);
+            this.label14.Size = new System.Drawing.Size(388, 25);
             this.label14.TabIndex = 10;
-            this.label14.Text = "Set PWM channel";
+            this.label14.Text = "Set PWM channel and associated H-bridge";
             // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Yellow;
+            this.tabPage1.Controls.Add(this.label22);
+            this.tabPage1.Controls.Add(this.numericUpDown7);
+            this.tabPage1.Controls.Add(this.button7);
+            this.tabPage1.Controls.Add(this.checkBox5);
             this.tabPage1.Controls.Add(this.label18);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(529, 495);
+            this.tabPage1.Size = new System.Drawing.Size(529, 608);
             this.tabPage1.TabIndex = 7;
             this.tabPage1.Text = "QE";
             // 
@@ -851,7 +975,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1003, 30);
+            this.menuStrip1.Size = new System.Drawing.Size(1429, 28);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -861,7 +985,7 @@
             this.exitToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // exitToolStripMenuItem
@@ -880,7 +1004,7 @@
             // 
             // InfoWindow
             // 
-            this.InfoWindow.Location = new System.Drawing.Point(555, 70);
+            this.InfoWindow.Location = new System.Drawing.Point(1010, 70);
             this.InfoWindow.Multiline = true;
             this.InfoWindow.Name = "InfoWindow";
             this.InfoWindow.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -891,7 +1015,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(555, 42);
+            this.label1.Location = new System.Drawing.Point(1015, 45);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(184, 25);
             this.label1.TabIndex = 3;
@@ -901,7 +1025,7 @@
             // 
             this.button5.BackColor = System.Drawing.Color.LightCoral;
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(645, 456);
+            this.button5.Location = new System.Drawing.Point(1112, 456);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(210, 36);
             this.button5.TabIndex = 4;
@@ -911,7 +1035,7 @@
             // 
             // DebugWindow
             // 
-            this.DebugWindow.Location = new System.Drawing.Point(555, 533);
+            this.DebugWindow.Location = new System.Drawing.Point(1010, 529);
             this.DebugWindow.Multiline = true;
             this.DebugWindow.Name = "DebugWindow";
             this.DebugWindow.Size = new System.Drawing.Size(407, 149);
@@ -921,17 +1045,61 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(555, 505);
+            this.label20.Location = new System.Drawing.Point(1015, 501);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(165, 25);
             this.label20.TabIndex = 6;
             this.label20.Text = "Debug messages";
             // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Location = new System.Drawing.Point(67, 137);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(78, 21);
+            this.checkBox5.TabIndex = 1;
+            this.checkBox5.Text = "Enable ";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // button7
+            // 
+            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button7.Location = new System.Drawing.Point(330, 103);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(106, 39);
+            this.button7.TabIndex = 2;
+            this.button7.Text = "Execute";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // numericUpDown7
+            // 
+            this.numericUpDown7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDown7.Location = new System.Drawing.Point(203, 91);
+            this.numericUpDown7.Maximum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.numericUpDown7.Name = "numericUpDown7";
+            this.numericUpDown7.Size = new System.Drawing.Size(51, 26);
+            this.numericUpDown7.TabIndex = 3;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(27, 91);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(160, 20);
+            this.label22.TabIndex = 4;
+            this.label22.Text = "QE Channel number";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1003, 717);
+            this.ClientSize = new System.Drawing.Size(1429, 717);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.DebugWindow);
             this.Controls.Add(this.button5);
@@ -963,6 +1131,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
@@ -971,6 +1141,7 @@
             this.tabPage1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1027,7 +1198,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDown5;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.NumericUpDown numericUpDown6;
-        private System.Windows.Forms.RadioButton radioButton4;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label16;
@@ -1049,6 +1219,20 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox DebugWindow;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.RadioButton radioButton14;
+        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.NumericUpDown numericUpDown7;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.CheckBox checkBox5;
     }
 }
 

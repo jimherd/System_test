@@ -55,19 +55,9 @@ namespace System_test {
             return command;
         }
 
-
-        private FPGA_uP_IO.ErrorCode Read_register(int register)
-        {
-            int data;
-            string command_str;
-            FPGA_uP_IO.ErrorCode status;
-
-            command_str = build_command('r', DEFAULT_PORT, register, 0);
-            InfoWindow.AppendText("command = " + command_str + Environment.NewLine);
-            status = (FPGA_uP_IO.do_command(command_str, out data));
-            InfoWindow.AppendText("Register = " + register + ":: Value = " + data + Environment.NewLine);
-            return status;
-        }
+        //***********************************************************
+        // do_command : execute command on uP/FPGA system
+        // ==========
 
         public FPGA_uP_IO.ErrorCode do_command(string command, out int data)
         {
@@ -134,32 +124,32 @@ namespace System_test {
             Thread.Sleep(2000);
         }
 
-            //***********************************************************
-            // Open_COM_port : Open selected seial COM port
-            // =============
-            private void Open_COM_port(object sender, EventArgs e)
-            {
-                if (comboBox1.SelectedItem == null) {
-                    InfoWindow.AppendText("No COM port selected " + Environment.NewLine);
-                    return;
-                }
-                string com_port = comboBox1.SelectedItem.ToString();
-                int baud_rate = Convert.ToInt32(comboBox2.SelectedItem);
-
-                FPGA_uP_IO.ErrorCode status = FPGA_uP_IO.Init_comms(com_port, baud_rate);
-
-                if (status != FPGA_uP_IO.ErrorCode.NO_ERROR) {
-                    InfoWindow.AppendText("Cannot open " + com_port + Environment.NewLine);
-                    return;
-                }
-                connected = true;
-                button4.Enabled = true;
-
-                InfoWindow.AppendText(com_port + " now open" + Environment.NewLine);
+        //***********************************************************
+        // Open_COM_port : Open selected seial COM port
+        // =============
+        private void Open_COM_port(object sender, EventArgs e)
+        {
+            if (comboBox1.SelectedItem == null) {
+                InfoWindow.AppendText("No COM port selected " + Environment.NewLine);
+                return;
             }
+            string com_port = comboBox1.SelectedItem.ToString();
+            int baud_rate = Convert.ToInt32(comboBox2.SelectedItem);
 
-            //***********************************************************
-            private void exitToolStripMenuItem_Click_2(object sender, EventArgs e)
+            FPGA_uP_IO.ErrorCode status = FPGA_uP_IO.Init_comms(com_port, baud_rate);
+
+            if (status != FPGA_uP_IO.ErrorCode.NO_ERROR) {
+                InfoWindow.AppendText("Cannot open " + com_port + Environment.NewLine);
+                return;
+            }
+            connected = true;
+            button4.Enabled = true;
+
+            InfoWindow.AppendText(com_port + " now open" + Environment.NewLine);
+        }
+
+        //***********************************************************
+        private void exitToolStripMenuItem_Click_2(object sender, EventArgs e)
         {
             serialPort1.Close();
             this.Close();
@@ -192,61 +182,43 @@ namespace System_test {
                 InfoWindow.AppendText("Port = " + FPGA_uP_IO.int_parameters[0] + Environment.NewLine);
                 InfoWindow.AppendText("Hard bus check : Return code = " + status + Environment.NewLine);
             }
-            /*if (radioButton3.Checked == true) {
-                status = FPGA_uP_IO.get_sys_data();
-                if (status == SUCCESS) {
-                    UInt32 data = (UInt32)FPGA_uP_IO.int_parameters[2];
-                    nos_PWM_units = ((data >> 8) & 0x0F);
-                    nos_QE_units = ((data >> 12) & 0x0F);
-                    nos_RC_units = ((data >> 16) & 0x0F);
-                    DebugWindow.AppendText("Port = " + FPGA_uP_IO.int_parameters[0] + Environment.NewLine);
-                    DebugWindow.AppendText("get_sys_data : Return data = " + data + Environment.NewLine);
-                    DebugWindow.AppendText("Version = " + (data & 0x0F) + "." + ((data >> 4) & 0x0F) + Environment.NewLine);
-                    DebugWindow.AppendText("PWM units = " + nos_PWM_units + Environment.NewLine);
-                    DebugWindow.AppendText("QE  units = " + nos_QE_units + Environment.NewLine);
-                    DebugWindow.AppendText("RC  units = " + nos_RC_units + Environment.NewLine);
-
-                    Write_Register.Enabled = true;
-                    Read_Register.Enabled = true;
-                    button9.Enabled = true;
-                    button11.Enabled = true;
-                }
-                else {
-                    DebugWindow.AppendText("get_sys_data : Error code = " + status + Environment.NewLine);
-                }
-            }*/
         }
 
         //****************************************************************
         // Run commands to control a PWM channel
+        //
+        // Notes
+        // * Will only affect "bit 0" of PWM config register. Other 31 bits should be undisturbed.
 
         private void Execute_PWM_cmd(object sender, EventArgs e)
         {
-        string command_str;
-        int PWM_channel, PWM_width_percent, channel_base_address, on_time_nS, on_time_FPGA_count, config_value, data, period_time_FPGA_count;
-        double period_time_nS, PWM_frequency;
-        FPGA_uP_IO.ErrorCode status;
+            string command_str;
+
+            int channel_base_address, on_time_nS, on_time_FPGA_count, data, period_time_FPGA_count;
+            int PWM_status;
+            double period_time_nS;
+            FPGA_uP_IO.ErrorCode status;
 
             status = FPGA_uP_IO.ErrorCode.NO_ERROR;
+            int config_value = 0;
 
-        // get values from PWM form and make checks
+            // get values from PWM form and make checks
 
-            PWM_channel      = (int)numericUpDown5.Value;
-            PWM_frequency    = double.Parse(textBox3.Text);
+            int PWM_channel = (int)numericUpDown5.Value;
+            double PWM_frequency = double.Parse(textBox3.Text);
             if ((PWM_frequency < MIN_PWM_FREQUENCY) || (PWM_frequency > MAX_PWM_FREQUENCY)) {
                 MessageBox.Show("Input PWM frequenct in range 0.01 to 100 (kHz)");
                 return;
             }
-            PWM_width_percent = Convert.ToInt32(numericUpDown6.Value);
- 
+            int PWM_width_percent = Convert.ToInt32(numericUpDown6.Value);
+
             // Calculate FPGA/uP command parameters
 
-            channel_base_address    = (Int32)(FPGA_uP_IO.PWM_base + (PWM_channel * FPGA_uP_IO.REGISTERS_PER_PWM_CHANNEL));
-
-            period_time_nS          = Convert.ToInt32(1000000.0 / PWM_frequency);
-            period_time_FPGA_count  = (int)(period_time_nS / 20);
-            on_time_nS              = Convert.ToInt32((PWM_width_percent * period_time_nS) / 100);
-            on_time_FPGA_count      = on_time_nS / 20;
+            channel_base_address = (Int32)(FPGA_uP_IO.PWM_base + (PWM_channel * FPGA_uP_IO.REGISTERS_PER_PWM_CHANNEL));
+            period_time_nS = Convert.ToInt32(1000000.0 / PWM_frequency);
+            period_time_FPGA_count = (int)(period_time_nS / 20);
+            on_time_nS = Convert.ToInt32((PWM_width_percent * period_time_nS) / 100);
+            on_time_FPGA_count = on_time_nS / 20;
 
             // check mode to execute
 
@@ -254,46 +226,46 @@ namespace System_test {
                 command_str = build_command('w', DEFAULT_PORT,
                                             (channel_base_address + (int)FPGA_Sys.PWM_REG.PERIOD), period_time_FPGA_count);
                 InfoWindow.AppendText("command = " + command_str + Environment.NewLine);
-                status = (FPGA_uP_IO.do_command(command_str, out data));
+                status = (do_command(command_str, out data));
+                InfoWindow.AppendText("Return code = " + status + Environment.NewLine);
+
                 command_str = build_command('w', DEFAULT_PORT,
                                             (channel_base_address + (int)FPGA_Sys.PWM_REG.ON_TIME), on_time_FPGA_count);
                 InfoWindow.AppendText("command = " + command_str + Environment.NewLine);
-                status = (FPGA_uP_IO.do_command(command_str, out data));
-                config_value = 0x00010001;
-                command_str = build_command('w', DEFAULT_PORT,
-                                            (channel_base_address + (int)FPGA_Sys.PWM_REG.CONFIG), config_value);
-                InfoWindow.AppendText("command = " + command_str + Environment.NewLine);
-                status = (FPGA_uP_IO.do_command(command_str, out data));
+                status = (do_command(command_str, out data));
+                InfoWindow.AppendText("Return code = " + status + Environment.NewLine);
             }
 
             if (radioButton6.Checked == true) {    // set PWM ON time
-                command_str = build_command('w', 
-                                            DEFAULT_PORT, 
-                                            (channel_base_address + (int)FPGA_Sys.PWM_REG.ON_TIME), 
-                                            on_time_FPGA_count);
+                command_str = build_command('w', DEFAULT_PORT,
+                                            (channel_base_address + (int)FPGA_Sys.PWM_REG.ON_TIME), on_time_FPGA_count);
                 InfoWindow.AppendText("command = " + command_str + Environment.NewLine);
-                status = (FPGA_uP_IO.do_command(command_str, out data));
+                status = (do_command(command_str, out data));
+                InfoWindow.AppendText("Return code = " + status + Environment.NewLine);
             }
 
-            if (radioButton7.Checked == true) {    // enable PWM channel
+            if ((radioButton7.Checked == true) | (checkBox2.Checked == true)) {    // enable PWM channel
                 config_value = 1;
-                command_str = build_command('w',
-                                            DEFAULT_PORT,
-                                            (channel_base_address + (int)FPGA_Sys.PWM_REG.CONFIG),
-                                            config_value);
-                InfoWindow.AppendText("command = " + command_str + Environment.NewLine);
-                status = (FPGA_uP_IO.do_command(command_str, out data));
             }
 
             if (radioButton8.Checked == true) {    // disable PWM channel
                 config_value = 0;
-                command_str = build_command('w',
-                                            DEFAULT_PORT,
-                                            (channel_base_address + (int)FPGA_Sys.PWM_REG.CONFIG),
-                                            config_value);
-                InfoWindow.AppendText("command = " + command_str + Environment.NewLine);
-                status = (FPGA_uP_IO.do_command(command_str, out data));
             }
+
+            // Process configuration data. Ensure that only bit-1 is changed. 
+
+            command_str = build_command('r', DEFAULT_PORT,
+                                            (channel_base_address + (int)FPGA_Sys.PWM_REG.CONFIG), config_value);
+            InfoWindow.AppendText("command = " + command_str + Environment.NewLine);
+            status = (do_command(command_str, out PWM_status));
+            InfoWindow.AppendText("Return code = " + status + Environment.NewLine);
+
+            config_value = ((int)(PWM_status & 0xFFFF0000) | (int)(config_value));
+
+            command_str = build_command('w', DEFAULT_PORT,
+                                        (channel_base_address + (int)FPGA_Sys.PWM_REG.CONFIG), config_value);
+            InfoWindow.AppendText("command = " + command_str + Environment.NewLine);
+            status = (do_command(command_str, out data));
             InfoWindow.AppendText("Return code = " + status + Environment.NewLine);
         }
 
@@ -303,14 +275,17 @@ namespace System_test {
         {
             int data;
 
-            string command_str = "r " + DEFAULT_PORT + " " + numericUpDown2.Value + " " + "0" + "\n";
+            // string command_str = "r " + DEFAULT_PORT + " " + numericUpDown2.Value + " " + "0" + "\n";
+            string command_str = build_command('r', DEFAULT_PORT, (int)numericUpDown2.Value, 0);
             InfoWindow.AppendText("command = " + command_str + Environment.NewLine);
-            FPGA_uP_IO.ErrorCode status = (FPGA_uP_IO.do_command(command_str, out data));
+            FPGA_uP_IO.ErrorCode status = (do_command(command_str, out data));
             InfoWindow.AppendText("Port = " + DEFAULT_PORT + Environment.NewLine);
             InfoWindow.AppendText("Register No = " + numericUpDown2.Value + Environment.NewLine);
             InfoWindow.AppendText("Register Value = " + FPGA_uP_IO.int_parameters[2] + Environment.NewLine);
             InfoWindow.AppendText("Return code = " + status + Environment.NewLine);
         }
+
+        
 
         //****************************************************************
         // Run command to write to a specified register
@@ -319,7 +294,7 @@ namespace System_test {
             int data;
 
             data = int.Parse(textBox1.Text, System.Globalization.NumberStyles.HexNumber);
-            string command_str = "w " + DEFAULT_PORT + " " + numericUpDown1.Value + " " + data + '\n';
+            string command_str = build_command('w', DEFAULT_PORT, (int)numericUpDown1.Value, data);
             InfoWindow.AppendText("command = " + command_str + Environment.NewLine);
             FPGA_uP_IO.ErrorCode status = (do_command(command_str, out data));
             InfoWindow.AppendText("Port = " + DEFAULT_PORT + Environment.NewLine);
@@ -360,64 +335,160 @@ namespace System_test {
                 InfoWindow.AppendText("get_sys_data : Error code = " + status + Environment.NewLine);
             }
         }
+
+
+
+        //****************************************************************
+        // Update H-bridge command only
+        private void Update_H_bridge_cmd_click(object sender, EventArgs e)
+        {
+            FPGA_uP_IO.ErrorCode status;
+            int data;
+            int config_value = 0;
+            int PWM_channel = (int)numericUpDown5.Value;
+            int channel_base_address = (int)(FPGA_uP_IO.PWM_base + (PWM_channel * FPGA_uP_IO.REGISTERS_PER_PWM_CHANNEL));
+            int motor_cmd = (int)comboBox3.SelectedIndex;
+
+            int command = 0;
+            Boolean change_cmd = false;
+
+            switch (motor_cmd) {
+                case 0:   // no change
+                    break;
+                case 1:  // COAST
+                    change_cmd = true;
+                    command = (int)FPGA_Sys.MOTOR_CMDS.COAST;
+                    break;
+                case 2:   // FORWARD
+                    change_cmd = true;
+                    command = (int)FPGA_Sys.MOTOR_CMDS.FORWARD;
+                    break;
+                case 3:   // BACKWARD
+                    change_cmd = true;
+                    command = (int)FPGA_Sys.MOTOR_CMDS.BACKWARD;
+                    break;
+                case 4:   // BRAKE
+                    change_cmd = true;
+                    command = (int)FPGA_Sys.MOTOR_CMDS.BRAKE;
+                    break;
+                default:
+                    break;
+            }
+            if (change_cmd == true) {
+                config_value = ((int)(config_value & (~FPGA_Sys.MOTOR_CMDS_MASK)) | command);
+            }
+
+            // Output PWM configuaration value to PWM
+
+            string command_str = build_command('w', DEFAULT_PORT,
+                                        (channel_base_address + (int)FPGA_Sys.PWM_REG.CONFIG), config_value);
+            InfoWindow.AppendText("command = " + command_str + Environment.NewLine);
+            status = (do_command(command_str, out data));
+            InfoWindow.AppendText("Return code = " + status + Environment.NewLine);
+        }
+
+        //****************************************************************
+        // Set the H-bridge configuration register
+        private void Set_H_bridge_config_Click(object sender, EventArgs e)
+        {
+            int config_value, PWM_config, data, command;
+            FPGA_uP_IO.ErrorCode status;
+
+            config_value = 0;
+            int PWM_channel = (int)numericUpDown5.Value;
+            int channel_base_address = (int)(FPGA_uP_IO.PWM_base + (PWM_channel * FPGA_uP_IO.REGISTERS_PER_PWM_CHANNEL));
+            int motor_cmd = (int)comboBox3.SelectedIndex;
+
+            // get current value of PWM configuration 
+
+            string command_str = build_command('r', DEFAULT_PORT,
+                                               (channel_base_address + (int)FPGA_Sys.PWM_REG.CONFIG), 0);
+            InfoWindow.AppendText("command = " + command_str + Environment.NewLine);
+            status = (do_command(command_str, out PWM_config));
+
+            // create new configuration value
+
+            if (checkBox3.Checked == true) {
+                config_value = ((int)(config_value & (~FPGA_Sys.INT_H_BRIDGE_MASK)) | (int)FPGA_Sys.INT_H_BRIDGE.ENABLE);
+            }
+            else {
+                config_value = (int)(config_value & (~FPGA_Sys.INT_H_BRIDGE_MASK));
+            }
+
+            if (checkBox4.Checked == true) {
+                config_value = ((int)(config_value & (~FPGA_Sys.EXT_H_BRIDGE_MASK)) | (int)FPGA_Sys.EXT_H_BRIDGE.ENABLE);
+            }
+            else {
+                config_value = (int)(config_value & (~FPGA_Sys.EXT_H_BRIDGE_MASK));
+            }
+
+            if (radioButton14.Checked == true) {   // PWM/PWM H-bridge mode
+                config_value = ((int)(config_value & (~FPGA_Sys.H_BRIDGE_MODE_MASK)) | (int)FPGA_Sys.H_BRIDGE_MODE.PWM_CONTROL);
+            }
+            else {
+                config_value = (int)(config_value & (~FPGA_Sys.H_BRIDGE_MODE_MASK));
+            }
+
+            if (radioButton3.Checked == true) {    //  PWM/DIR H-bridge mode
+                config_value = ((int)(config_value & (~FPGA_Sys.H_BRIDGE_MODE_MASK)) | (int)FPGA_Sys.H_BRIDGE_MODE.DIR_CONTROL);
+            }
+            else {
+                config_value = (int)(config_value & (~FPGA_Sys.H_BRIDGE_MODE_MASK));
+            }
+            command = 0;
+            Boolean change_cmd = false;
+            switch (motor_cmd) {
+                case 0:   // no change
+                    break;
+                case 1:  // COAST
+                    change_cmd = true;
+                    command = (int)FPGA_Sys.MOTOR_CMDS.COAST;
+                    break;
+                case 2:   // FORWARD
+                    change_cmd = true;
+                    command = (int)FPGA_Sys.MOTOR_CMDS.FORWARD;
+                    break;
+                case 3:   // BACKWARD
+                    change_cmd = true;
+                    command = (int)FPGA_Sys.MOTOR_CMDS.BACKWARD;
+                    break;
+                case 4:   // BRAKE
+                    change_cmd = true;
+                    command = (int)FPGA_Sys.MOTOR_CMDS.BRAKE;
+                    break;
+                default:
+                    break;
+            }
+            if (change_cmd == true) {
+                config_value = ((int)(config_value & (~FPGA_Sys.MOTOR_CMDS_MASK)) | command);
+            }
+            config_value = (int)(config_value & 0xFFFF0000) | (PWM_config & 0x0000FFFF);
+
+            // Output PWM configuaration value to PWM
+
+            command_str = build_command('w', DEFAULT_PORT,
+                                        (channel_base_address + (int)FPGA_Sys.PWM_REG.CONFIG), config_value);
+            InfoWindow.AppendText("command = " + command_str + Environment.NewLine);
+            status = (do_command(command_str, out data));
+            InfoWindow.AppendText("Return code = " + status + Environment.NewLine);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            int data;
+            int config_value = 0;
+            int QE_channel = (int)numericUpDown7.Value;
+            int channel_base_address = (int)(FPGA_uP_IO.QE_base + (QE_channel * FPGA_uP_IO.REGISTERS_PER_QE_CHANNEL));
+
+            if (checkBox2.Checked == true) {    // enable QE channel
+                config_value = 1;
+            }
+            string command_str = build_command('w', DEFAULT_PORT,
+                                        (channel_base_address + (int)FPGA_Sys.PWM_REG.CONFIG), config_value);
+            InfoWindow.AppendText("command = " + command_str + Environment.NewLine);
+            FPGA_uP_IO.ErrorCode status = (do_command(command_str, out data));
+            InfoWindow.AppendText("Return code = " + status + Environment.NewLine);
+        }
     }
 }
 
-
-
-
-
-
-        // command_str = "w " + DEFAULT_PORT + " " + (PWM_unit_base_address + FPGA_Sys.PWM_REG.ON_TIME) + " " + numericUpDown1.Value + "\n";
-
-
-//private void button7_Click(object sender, EventArgs e)
-//{
-//    string command_str = "r " + DEFAULT_PORT + " " + numericUpDown1.Value + " " + "0" + Environment.NewLine;
-//    DebugWindow.AppendText("command = " + command_str + Environment.NewLine);
-//    FPGA_uP_IO.ErrorCode status = (FPGA_uP_IO.do_command(command_str));
-//    DebugWindow.AppendText("Port = " + DEFAULT_PORT + Environment.NewLine);
-//    DebugWindow.AppendText("Register No = " + numericUpDown1.Value + Environment.NewLine);
-//    DebugWindow.AppendText("Register Value = " + FPGA_uP_IO.int_parameters[2] + Environment.NewLine);
-//    DebugWindow.AppendText("Return code = " + status + Environment.NewLine);
-//}
-
-//private void button6_Click(object sender, EventArgs e)
-//{
-//    string command_str = "w " + DEFAULT_PORT + " " + numericUpDown1.Value + " " + textBox1.Text + Environment.NewLine;
-//    DebugWindow.AppendText("command = " + command_str + Environment.NewLine);
-//    FPGA_uP_IO.ErrorCode status = (FPGA_uP_IO.do_command(command_str));
-//    DebugWindow.AppendText("Port = " + DEFAULT_PORT + Environment.NewLine);
-//    DebugWindow.AppendText("Register No = " + numericUpDown1.Value + Environment.NewLine);
-//    DebugWindow.AppendText("Register Value = " + textBox1.Text + Environment.NewLine);
-//    DebugWindow.AppendText("Return code = " + status + Environment.NewLine);
-//}
-
-//    if (radioButton5.Checked == true) {   // run full setup
-//    }
-
-//    if (radioButton6.Checked == true) {   // change PWM width only
-//        command_str = build_command('w', DEFAULT_PORT, (PWM_unit_base_address + (int)FPGA_Sys.PWM_REG.ON_TIME), (int)numericUpDown1.Value);
-//        DebugWindow.AppendText("command = " + command_str + Environment.NewLine);
-//        FPGA_uP_IO.ErrorCode status = (FPGA_uP_IO.do_command(command_str));
-//    }
-
-
-
-
-//    if (radioButton7.Checked == true) {   // Enable channel
-//    }
-//    if (radioButton8.Checked == true) {   // disable channel
-//    }
-//}
-
-////
-//// calculate base address of selected PWM unit
-
-//int PWM_unit_base_address = FPGA_uP_IO.PWM_base + ((int)numericUpDown5.Value * FPGA_uP_IO.REGISTERS_PER_PWM_CHANNEL);
-
-//// bus.set_PWM_period(0, 5.0 /* KHz */);  // PWM_ch0
-
-//// bus.set_PWM_duty(0, 50 /* % */);
-
-//// bus.PWM_config(0, (PWM_ON + MODE_DIR_CONTROL + INT_H_BRIDGE_ON + MOTOR_FORWARD));
