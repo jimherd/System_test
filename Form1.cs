@@ -1,4 +1,6 @@
-﻿
+﻿//
+//
+//
 
 using MotionIOLibrary;
 using System;
@@ -562,6 +564,20 @@ namespace System_test {
             InfoWindow.AppendText("command = " + command_str + Environment.NewLine);
             status = (do_command(command_str, out data));
             InfoWindow.AppendText("Return code = " + status + Environment.NewLine);
+        }
+
+        private void Close__COM_port_Click(object sender, EventArgs e)
+        {
+            
+
+            FPGA_uP_IO.ErrorCode status = FPGA_uP_IO.Close_comms();
+
+            if (status != FPGA_uP_IO.ErrorCode.NO_ERROR) {
+                InfoWindow.AppendText("Cannot close COM port" + Environment.NewLine);
+                return;
+            }
+
+            InfoWindow.AppendText("COM port now closed" + Environment.NewLine);
         }
     }
 }

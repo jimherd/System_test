@@ -124,6 +124,7 @@
             this.button5 = new System.Windows.Forms.Button();
             this.DebugWindow = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
+            this.button10 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.COM_init.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -167,6 +168,7 @@
             // COM_init
             // 
             this.COM_init.BackColor = System.Drawing.Color.Yellow;
+            this.COM_init.Controls.Add(this.button10);
             this.COM_init.Controls.Add(this.button2);
             this.COM_init.Controls.Add(this.label19);
             this.COM_init.Controls.Add(this.label4);
@@ -247,7 +249,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(131, 181);
+            this.button1.Location = new System.Drawing.Point(74, 178);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(209, 38);
             this.button1.TabIndex = 1;
@@ -1262,6 +1264,17 @@
             this.label20.TabIndex = 6;
             this.label20.Text = "Debug messages";
             // 
+            // button10
+            // 
+            this.button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button10.Location = new System.Drawing.Point(356, 178);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(189, 38);
+            this.button10.TabIndex = 13;
+            this.button10.Text = "Close COM Port";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.Close__COM_port_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1416,6 +1429,7 @@
         private System.Windows.Forms.CheckBox checkBox7;
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button10;
     }
 }
 
