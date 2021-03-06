@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.COM_init = new System.Windows.Forms.TabPage();
+            this.button10 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -124,7 +125,8 @@
             this.button5 = new System.Windows.Forms.Button();
             this.DebugWindow = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
-            this.button10 = new System.Windows.Forms.Button();
+            this.radioButton17 = new System.Windows.Forms.RadioButton();
+            this.radioButton18 = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.COM_init.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -183,6 +185,17 @@
             this.COM_init.Size = new System.Drawing.Size(728, 608);
             this.COM_init.TabIndex = 0;
             this.COM_init.Text = "System_init";
+            // 
+            // button10
+            // 
+            this.button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button10.Location = new System.Drawing.Point(356, 178);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(189, 38);
+            this.button10.TabIndex = 13;
+            this.button10.Text = "Close COM Port";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.Close__COM_port_Click);
             // 
             // button2
             // 
@@ -281,13 +294,15 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.groupBox1.Controls.Add(this.radioButton18);
+            this.groupBox1.Controls.Add(this.radioButton17);
             this.groupBox1.Controls.Add(this.button4);
             this.groupBox1.Controls.Add(this.radioButton2);
             this.groupBox1.Controls.Add(this.radioButton1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(29, 43);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(405, 145);
+            this.groupBox1.Size = new System.Drawing.Size(482, 269);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "System commands";
@@ -295,7 +310,7 @@
             // button4
             // 
             this.button4.Enabled = false;
-            this.button4.Location = new System.Drawing.Point(214, 57);
+            this.button4.Location = new System.Drawing.Point(291, 101);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(139, 54);
             this.button4.TabIndex = 3;
@@ -306,23 +321,23 @@
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(20, 82);
+            this.radioButton2.Location = new System.Drawing.Point(24, 135);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(127, 29);
+            this.radioButton2.Size = new System.Drawing.Size(186, 29);
             this.radioButton2.TabIndex = 1;
             this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Hard PING";
+            this.radioButton2.Text = "Hard PING FPGA";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(20, 43);
+            this.radioButton1.Location = new System.Drawing.Point(24, 91);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(120, 29);
+            this.radioButton1.Size = new System.Drawing.Size(179, 29);
             this.radioButton1.TabIndex = 0;
             this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Soft PING";
+            this.radioButton1.Text = "Soft PING FPGA";
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // tabPage3
@@ -1264,16 +1279,27 @@
             this.label20.TabIndex = 6;
             this.label20.Text = "Debug messages";
             // 
-            // button10
+            // radioButton17
             // 
-            this.button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button10.Location = new System.Drawing.Point(356, 178);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(189, 38);
-            this.button10.TabIndex = 13;
-            this.button10.Text = "Close COM Port";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.Close__COM_port_Click);
+            this.radioButton17.AutoSize = true;
+            this.radioButton17.Location = new System.Drawing.Point(24, 46);
+            this.radioButton17.Name = "radioButton17";
+            this.radioButton17.Size = new System.Drawing.Size(210, 29);
+            this.radioButton17.TabIndex = 4;
+            this.radioButton17.TabStop = true;
+            this.radioButton17.Text = "Ping microprocessor";
+            this.radioButton17.UseVisualStyleBackColor = true;
+            // 
+            // radioButton18
+            // 
+            this.radioButton18.AutoSize = true;
+            this.radioButton18.Location = new System.Drawing.Point(24, 179);
+            this.radioButton18.Name = "radioButton18";
+            this.radioButton18.Size = new System.Drawing.Size(153, 29);
+            this.radioButton18.TabIndex = 5;
+            this.radioButton18.TabStop = true;
+            this.radioButton18.Text = "Restart FPGA";
+            this.radioButton18.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -1430,6 +1456,8 @@
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.RadioButton radioButton18;
+        private System.Windows.Forms.RadioButton radioButton17;
     }
 }
 

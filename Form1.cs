@@ -17,7 +17,8 @@ namespace System_test {
         //***********************************************************************
         // Constant definitions
         //***********************************************************************
-        private const int SUCCESS = 0;
+
+        //private const int SUCCESS = 0;
 
         private const int DEFAULT_PORT = 9;
 
@@ -25,6 +26,11 @@ namespace System_test {
 
         private const double MIN_PWM_FREQUENCY = 0.01;   //kHz
         private const double MAX_PWM_FREQUENCY = 100.0;  //kHz
+
+        const int SUCCESS       = 0;
+        const int COMBAUD       = 115200;
+        const int READ_TIMEOUT  = 10000;   // timeout for read reply (10 seconds)
+
 
         //***********************************************************************
         // variables and methods
@@ -48,6 +54,7 @@ namespace System_test {
         {
             InitializeComponent();
         }
+
 
         //***********************************************************
         // User functions
@@ -114,6 +121,36 @@ namespace System_test {
         // Window interface functions
         //***********************************************************
 
+
+        //***********************************************************************
+        // User functions
+        //*********************************************************************** 
+        // get_reply : Read a status/data reply from LLcontrol subsystem
+        //
+        public Int32 get_reply()
+        {
+            string reply;
+            Int32 status;
+
+            //serialPort1.DiscardInBuffer();
+            serialPort1.ReadTimeout = READ_TIMEOUT;
+            try
+            {
+                reply = serialPort1.ReadLine();
+            }
+            catch (TimeoutException)
+            {
+                DebugWindow.AppendText("ReadLine timeout fail" + Environment.NewLine);
+                return -1;
+            }
+            DebugWindow.AppendText("Reply = " + reply);
+            return SUCCESS;
+        }
+ 
+        //***********************************************************************
+        // Window interface functions
+        //*********************************************************************** 
+
         private void Form1_Load(object sender, EventArgs e)
         {
             // 1. Populate Serial port combobox
@@ -133,11 +170,15 @@ namespace System_test {
                 return;
             }
             comboBox1.SelectedIndex = 0;
+
             //
             comboBox2.DataSource = baud_rates;
             comboBox2.SelectedIndex = 0;
             //
             comboBox3.SelectedIndex = 2;
+
+
+            serialPort1.BaudRate = COMBAUD;
 
             global_error = SUCCESS;
             Thread.Sleep(2000);
@@ -191,6 +232,11 @@ namespace System_test {
         {
             FPGA_uP_IO.ErrorCode status;
 
+            if (radioButton17.Checked == true) {
+                status = FPGA_uP_IO.ping_uP();
+                InfoWindow.AppendText("Port = " + FPGA_uP_IO.int_parameters[0] + Environment.NewLine);
+                InfoWindow.AppendText("Ping uP : Return code = " + status + Environment.NewLine);
+            }
             if (radioButton1.Checked == true) {
                 status = FPGA_uP_IO.soft_bus_check();
                 InfoWindow.AppendText("Port = " + FPGA_uP_IO.int_parameters[0] + Environment.NewLine);
@@ -200,6 +246,11 @@ namespace System_test {
                 status = FPGA_uP_IO.hard_bus_check();
                 InfoWindow.AppendText("Port = " + FPGA_uP_IO.int_parameters[0] + Environment.NewLine);
                 InfoWindow.AppendText("Hard bus check : Return code = " + status + Environment.NewLine);
+            }
+            if (radioButton18.Checked == true) {
+                status = FPGA_uP_IO.restart_FPGA();
+                InfoWindow.AppendText("Port = " + FPGA_uP_IO.int_parameters[0] + Environment.NewLine);
+                InfoWindow.AppendText("Restart FPGA : Return code = " + status + Environment.NewLine);
             }
         }
 
@@ -578,6 +629,16 @@ namespace System_test {
             }
 
             InfoWindow.AppendText("COM port now closed" + Environment.NewLine);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            String command = "p 5 ";
+
+            DebugWindow.AppendText(command + Environment.NewLine);
+            serialPort1.WriteLine(command);
+            DebugWindow.AppendText("Wating for reply" + Environment.NewLine);
+            int status = get_reply();
         }
     }
 }
