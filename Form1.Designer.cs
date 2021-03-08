@@ -42,6 +42,8 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButton18 = new System.Windows.Forms.RadioButton();
+            this.radioButton17 = new System.Windows.Forms.RadioButton();
             this.button4 = new System.Windows.Forms.Button();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
@@ -115,6 +117,11 @@
             this.button7 = new System.Windows.Forms.Button();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.label18 = new System.Windows.Forms.Label();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.radioButton20 = new System.Windows.Forms.RadioButton();
+            this.button12 = new System.Windows.Forms.Button();
+            this.radioButton19 = new System.Windows.Forms.RadioButton();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -125,8 +132,6 @@
             this.button5 = new System.Windows.Forms.Button();
             this.DebugWindow = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
-            this.radioButton17 = new System.Windows.Forms.RadioButton();
-            this.radioButton18 = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.COM_init.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -149,6 +154,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
+            this.tabPage7.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -161,6 +168,7 @@
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage7);
             this.tabControl1.Location = new System.Drawing.Point(12, 45);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -306,6 +314,28 @@
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "System commands";
+            // 
+            // radioButton18
+            // 
+            this.radioButton18.AutoSize = true;
+            this.radioButton18.Location = new System.Drawing.Point(24, 179);
+            this.radioButton18.Name = "radioButton18";
+            this.radioButton18.Size = new System.Drawing.Size(153, 29);
+            this.radioButton18.TabIndex = 5;
+            this.radioButton18.TabStop = true;
+            this.radioButton18.Text = "Restart FPGA";
+            this.radioButton18.UseVisualStyleBackColor = true;
+            // 
+            // radioButton17
+            // 
+            this.radioButton17.AutoSize = true;
+            this.radioButton17.Location = new System.Drawing.Point(24, 46);
+            this.radioButton17.Name = "radioButton17";
+            this.radioButton17.Size = new System.Drawing.Size(210, 29);
+            this.radioButton17.TabIndex = 4;
+            this.radioButton17.TabStop = true;
+            this.radioButton17.Text = "Ping microprocessor";
+            this.radioButton17.UseVisualStyleBackColor = true;
             // 
             // button4
             // 
@@ -1196,6 +1226,64 @@
             this.label18.TabIndex = 0;
             this.label18.Text = "Access Quadrature Encoder unit";
             // 
+            // tabPage7
+            // 
+            this.tabPage7.BackColor = System.Drawing.Color.Yellow;
+            this.tabPage7.Controls.Add(this.groupBox7);
+            this.tabPage7.Location = new System.Drawing.Point(4, 25);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage7.Size = new System.Drawing.Size(728, 608);
+            this.tabPage7.TabIndex = 8;
+            this.tabPage7.Text = "Seq";
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.groupBox7.Controls.Add(this.radioButton20);
+            this.groupBox7.Controls.Add(this.button12);
+            this.groupBox7.Controls.Add(this.radioButton19);
+            this.groupBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox7.Location = new System.Drawing.Point(17, 33);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(655, 389);
+            this.groupBox7.TabIndex = 1;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Sequences";
+            // 
+            // radioButton20
+            // 
+            this.radioButton20.AutoSize = true;
+            this.radioButton20.Location = new System.Drawing.Point(21, 82);
+            this.radioButton20.Name = "radioButton20";
+            this.radioButton20.Size = new System.Drawing.Size(139, 29);
+            this.radioButton20.TabIndex = 1;
+            this.radioButton20.Text = "Sequence 2";
+            this.radioButton20.UseVisualStyleBackColor = true;
+            // 
+            // button12
+            // 
+            this.button12.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button12.Location = new System.Drawing.Point(411, 317);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(219, 55);
+            this.button12.TabIndex = 0;
+            this.button12.Text = "Execute sequence";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.execute_sequence__Click);
+            // 
+            // radioButton19
+            // 
+            this.radioButton19.AutoSize = true;
+            this.radioButton19.Checked = true;
+            this.radioButton19.Location = new System.Drawing.Point(21, 47);
+            this.radioButton19.Name = "radioButton19";
+            this.radioButton19.Size = new System.Drawing.Size(563, 29);
+            this.radioButton19.TabIndex = 0;
+            this.radioButton19.TabStop = true;
+            this.radioButton19.Text = "PWM 1 : 10KHz , 75% pwm, H-bridge, Dir/PWM, coast, QE 1";
+            this.radioButton19.UseVisualStyleBackColor = true;
+            // 
             // menuStrip1
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -1279,28 +1367,6 @@
             this.label20.TabIndex = 6;
             this.label20.Text = "Debug messages";
             // 
-            // radioButton17
-            // 
-            this.radioButton17.AutoSize = true;
-            this.radioButton17.Location = new System.Drawing.Point(24, 46);
-            this.radioButton17.Name = "radioButton17";
-            this.radioButton17.Size = new System.Drawing.Size(210, 29);
-            this.radioButton17.TabIndex = 4;
-            this.radioButton17.TabStop = true;
-            this.radioButton17.Text = "Ping microprocessor";
-            this.radioButton17.UseVisualStyleBackColor = true;
-            // 
-            // radioButton18
-            // 
-            this.radioButton18.AutoSize = true;
-            this.radioButton18.Location = new System.Drawing.Point(24, 179);
-            this.radioButton18.Name = "radioButton18";
-            this.radioButton18.Size = new System.Drawing.Size(153, 29);
-            this.radioButton18.TabIndex = 5;
-            this.radioButton18.TabStop = true;
-            this.radioButton18.Text = "Restart FPGA";
-            this.radioButton18.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1351,6 +1417,9 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
+            this.tabPage7.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -1458,6 +1527,11 @@
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.RadioButton radioButton18;
         private System.Windows.Forms.RadioButton radioButton17;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.RadioButton radioButton20;
+        private System.Windows.Forms.RadioButton radioButton19;
     }
 }
 

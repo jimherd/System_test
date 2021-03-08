@@ -7,6 +7,7 @@ using System;
 using System.IO.Ports;
 using System.Threading;
 using System.Windows.Forms;
+using LiveCharts;
 
 namespace System_test {
 
@@ -639,6 +640,42 @@ namespace System_test {
             serialPort1.WriteLine(command);
             DebugWindow.AppendText("Wating for reply" + Environment.NewLine);
             int status = get_reply();
+        }
+        string[] sequence_1 = new[] {
+            "P4 9\n",              // reset system
+            "w 9 1 5000\n",        // set period
+            "w 9 2 3750\n",        // set PWM on-time
+            "w 9 3 34930689\n",    // set configuration for PWM and H-bridge
+            "w 9 14 65537\n",      // set quadrature encoder with velocity measurement
+        };
+        string[] sequence_2 = new[] {
+            "P4 0"
+        };
+
+        private void execute_sequence__Click(object sender, EventArgs e)
+        {
+            FPGA_uP_IO.ErrorCode status;
+            int data;
+
+            if (radioButton19.Checked == true) {
+                for (int i = 0; i < sequence_1.Length; i++) {
+                    status = (do_command(sequence_1[i], out data));
+                    if (status != FPGA_uP_IO.ErrorCode.NO_ERROR) {
+                        break;
+                    }
+                }
+                return;
+            }
+            if (radioButton20.Checked == true) {
+                for (int i = 0; i < sequence_2.Length; i++) {
+                    status = (do_command(sequence_2[i], out data));
+                    if (status != FPGA_uP_IO.ErrorCode.NO_ERROR) {
+                        break;
+                    }
+                }
+                return;
+
+            }
         }
     }
 }
